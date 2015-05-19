@@ -3,7 +3,6 @@ package com.group5.designpatters.ebazaar;
 /**
  * @author Moh'd Rashed Obaidat, Odiljon Sattarov, Rustam Ishmatov
  */
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -17,7 +16,8 @@ public class UserServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
+    
 
-    }
+}
 
 }
