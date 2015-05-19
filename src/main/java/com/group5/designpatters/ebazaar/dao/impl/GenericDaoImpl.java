@@ -18,54 +18,39 @@ import org.hibernate.Transaction;
  */
 public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
 
-    protected SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     @Override
     public List<T> findAll(Class<T> entityClass) {
-        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
-        List<T> list = sessionFactory.getCurrentSession().createQuery("from " + entityClass.getName()).list();
-        tx.commit();
-        return list;
+        return sessionFactory.getCurrentSession().createQuery("from " + entityClass.getName()).list();
     }
 
     @Override
     public T findById(PK id, Class<T> entityClass) {
-        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
-        T t = (T) sessionFactory.getCurrentSession().get(entityClass, id);
-        tx.commit();
-        return t;
+        return (T) sessionFactory.getCurrentSession().get(entityClass, id);
     }
 
     @Override
     public T create(T t) {
-        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
         sessionFactory.getCurrentSession().persist(t);
-        tx.commit();
         return t;
     }
 
     @Override
     public T update(T t) {
-        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
         t = (T) sessionFactory.getCurrentSession().merge(t);
         sessionFactory.getCurrentSession().update(t);
-        tx.commit();
         return t;
     }
 
     @Override
     public void delete(T t) {
-        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
         t = (T) sessionFactory.getCurrentSession().merge(t);
         sessionFactory.getCurrentSession().delete(t);
-        tx.commit();
     }
 
     @Override
     public T load(PK id, Class<T> entityClass) {
-        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
-        T t = (T) sessionFactory.getCurrentSession().load(entityClass, id);
-        tx.commit();
-        return t;
+        return (T) sessionFactory.getCurrentSession().load(entityClass, id);
     }
 }

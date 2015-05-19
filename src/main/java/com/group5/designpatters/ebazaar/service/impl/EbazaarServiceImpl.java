@@ -13,7 +13,10 @@ import com.group5.designpatters.ebazaar.entities.Product;
 import com.group5.designpatters.ebazaar.entities.Role;
 import com.group5.designpatters.ebazaar.entities.User;
 import com.group5.designpatters.ebazaar.service.EbazaarService;
+import com.group5.designpatters.ebazaar.utilities.HibernateUtil;
 import java.util.List;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -21,6 +24,7 @@ import java.util.List;
  */
 public class EbazaarServiceImpl implements EbazaarService {
 
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private GenericDao<Product, Long> productDao = new GenericDaoImpl<Product, Long>();
     private GenericDao<Order, Long> orderDao = new GenericDaoImpl<Order, Long>();
     private GenericDao<User, Long> userDao = new GenericDaoImpl<User, Long>();
@@ -29,52 +33,82 @@ public class EbazaarServiceImpl implements EbazaarService {
 
     @Override
     public Product createProduct(Product p) {
-        return productDao.create(p);
+        Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+        Product product = productDao.create(p);
+        tx.commit();
+        return product;
     }
 
     @Override
     public Order createOrder(Order o) {
-        return orderDao.create(o);
+        Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+        Order order = orderDao.create(o);
+        tx.commit();
+        return order;
     }
 
     @Override
     public Role createRole(Role r) {
-        return roleDao.create(r);
+        Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+        Role role = roleDao.create(r);
+        tx.commit();
+        return role;
     }
 
     @Override
     public Category createCategory(Category c) {
-        return categoryDao.create(c);
+        Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+        Category category = categoryDao.create(c);
+        tx.commit();
+        return category;
     }
 
     @Override
     public User createUser(User u) {
-        return userDao.create(u);
+        Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+        User user = userDao.create(u);
+        tx.commit();
+        return user;
     }
 
     @Override
     public List<Product> getProductList() {
-        return productDao.findAll(Product.class);
+        Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+        List<Product> productList = productDao.findAll(Product.class);
+        tx.commit();
+        return productList;
     }
 
     @Override
     public List<Order> getOrderList() {
-        return orderDao.findAll(Order.class);
+        Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+        List<Order> orderList = orderDao.findAll(Order.class);
+        tx.commit();
+        return orderList;
     }
 
     @Override
     public List<Role> getRoleList() {
-        return roleDao.findAll(Role.class);
+        Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+        List<Role> roleList = roleDao.findAll(Role.class);
+        tx.commit();
+        return roleList;
     }
 
     @Override
     public List<Category> getCategoryList() {
-        return categoryDao.findAll(Category.class);
+        Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+        List<Category> categoryList = categoryDao.findAll(Category.class);
+        tx.commit();
+        return categoryList;
     }
 
     @Override
     public List<User> getUserList() {
-        return userDao.findAll(User.class);
+        Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+        List<User> userList = userDao.findAll(User.class);
+        tx.commit();
+        return userList;
     }
 
 }
