@@ -10,6 +10,7 @@ import com.group5.designpatters.ebazaar.utilities.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -21,50 +22,50 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
 
     @Override
     public List<T> findAll(Class<T> entityClass) {
-        sessionFactory.openSession().getTransaction();
+        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
         List<T> list = sessionFactory.getCurrentSession().createQuery("from " + entityClass.getName()).list();
-        sessionFactory.getCurrentSession().getTransaction().commit();
+        tx.commit();
         return list;
     }
 
     @Override
     public T findById(PK id, Class<T> entityClass) {
-        sessionFactory.openSession().getTransaction();
+        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
         T t = (T) sessionFactory.getCurrentSession().get(entityClass, id);
-        sessionFactory.getCurrentSession().getTransaction().commit();
+        tx.commit();
         return t;
     }
 
     @Override
     public T create(T t) {
-        sessionFactory.openSession().getTransaction();
+        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
         sessionFactory.getCurrentSession().persist(t);
-        sessionFactory.getCurrentSession().getTransaction().commit();
+        tx.commit();
         return t;
     }
 
     @Override
     public T update(T t) {
-        sessionFactory.openSession().getTransaction();
+        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
         t = (T) sessionFactory.getCurrentSession().merge(t);
         sessionFactory.getCurrentSession().update(t);
-        sessionFactory.getCurrentSession().getTransaction().commit();
+        tx.commit();
         return t;
     }
 
     @Override
     public void delete(T t) {
-        sessionFactory.openSession().getTransaction();
+        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
         t = (T) sessionFactory.getCurrentSession().merge(t);
         sessionFactory.getCurrentSession().delete(t);
-        sessionFactory.getCurrentSession().getTransaction().commit();
+        tx.commit();
     }
 
     @Override
     public T load(PK id, Class<T> entityClass) {
-        sessionFactory.openSession().getTransaction();
+        Transaction tx = sessionFactory.getCurrentSession().getTransaction();
         T t = (T) sessionFactory.getCurrentSession().load(entityClass, id);
-        sessionFactory.getCurrentSession().getTransaction().commit();
+        tx.commit();
         return t;
     }
 }
