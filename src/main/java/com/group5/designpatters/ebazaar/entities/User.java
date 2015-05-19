@@ -5,21 +5,37 @@
  */
 package com.group5.designpatters.ebazaar.entities;
 
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 /**
  *
- * @authors Moh'd Rashed Obaidat  
- *          Odiljon Sattarov 
- *          Rustam Ishmatov
+ * @author Moh'd Rashed Obaidat, Odiljon Sattarov, Rustam Ishmatov
  */
+@Entity
 public class User {
-    
-   private long id;
-   private String userName;
-   private String password;
-   private String realName;
-   private String email;
-   private String info;
-   private Role role;
+
+    @Id
+    @GeneratedValue
+    private long id;
+    @Column(name = "user_name")
+    private String userName;
+    private String password;
+    @Column(name = "real_name")
+    private String realName;
+    private String email;
+    private String info;
+    @OneToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+    @OneToMany(mappedBy = "user")
+    private List<Product> productList;
 
     public User() {
     }
@@ -79,7 +95,13 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
-   
-   
-    
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
 }

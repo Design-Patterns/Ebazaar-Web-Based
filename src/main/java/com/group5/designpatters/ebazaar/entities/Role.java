@@ -5,13 +5,18 @@
  */
 package com.group5.designpatters.ebazaar.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
- * @author Moh'd Rashed Obaidat  
- *         Odiljon Sattarov 
- *         Rustam Ishmatov
+ * @author Moh'd Rashed Obaidat, Odiljon Sattarov, Rustam Ishmatov
  */
+@Entity
 public class Role {
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
     private String info;

@@ -6,15 +6,25 @@
 package com.group5.designpatters.ebazaar.entities;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
- * @authors Moh'd Rashed Obaidat  
- *          Odiljon Sattarov 
- *          Rustam Ishmatov
+ * @author Moh'd Rashed Obaidat, Odiljon Sattarov, Rustam Ishmatov
  */
+@Entity
+@Table(name = "USER_ORDER")
 public class Order {
+    @Id
+    @GeneratedValue
     private long id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
     private Date date;
 
@@ -44,6 +54,5 @@ public class Order {
     public void setDate(Date date) {
         this.date = date;
     }
-    
-    
+
 }

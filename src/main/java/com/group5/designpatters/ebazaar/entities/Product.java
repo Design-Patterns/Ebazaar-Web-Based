@@ -5,19 +5,31 @@
  */
 package com.group5.designpatters.ebazaar.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 /**
  *
- * @authors Moh'd Rashed Obaidat  
- *          Odiljon Sattarov 
- *          Rustam Ishmatov
+ * @author Moh'd Rashed Obaidat, Odiljon Sattarov, Rustam Ishmatov
  */
+@Entity
 public class Product {
+
+    @Id
+    @GeneratedValue
     private long id;
     private String description;
     private String title;
     private double price;
     private int quantity;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Product() {
@@ -78,6 +90,4 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
-    
-    
 }

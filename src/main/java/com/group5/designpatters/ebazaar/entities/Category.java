@@ -5,20 +5,25 @@
  */
 package com.group5.designpatters.ebazaar.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
- * @authors Moh'd Rashed Obaidat  
- *          Odiljon Sattarov 
- *          Rustam Ishmatov
+ * @author Moh'd Rashed Obaidat, Odiljon Sattarov, Rustam Ishmatov
  */
+@Entity
 public class Category {
-   private long id;
-   private String name;
-   private String info;
+    @Id
+    @GeneratedValue
+    private long id;
+    private String name;
+    private String info;
 
     public Category() {
     }
-   
+
     public long getId() {
         return id;
     }
@@ -42,7 +47,4 @@ public class Category {
     public void setInfo(String info) {
         this.info = info;
     }
-   
-   
-   
 }
