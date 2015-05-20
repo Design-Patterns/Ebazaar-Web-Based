@@ -27,6 +27,7 @@ import org.hibernate.Transaction;
  */
 public class EbazaarServiceImpl implements EbazaarService {
 
+    private static EbazaarServiceImpl instance;
     private Transaction tx;
     private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private GenericDao<Product, Long> productDao = new GenericDaoImpl<Product, Long>();
@@ -34,6 +35,10 @@ public class EbazaarServiceImpl implements EbazaarService {
     private GenericDao<User, Long> userDao = new GenericDaoImpl<User, Long>();
     private GenericDao<Role, Long> roleDao = new GenericDaoImpl<Role, Long>();
     private GenericDao<Category, Long> categoryDao = new GenericDaoImpl<Category, Long>();
+
+    private EbazaarServiceImpl() {
+
+    }
 
     @Override
     public Product createOrUpdateProduct(Product p) {
@@ -152,5 +157,16 @@ public class EbazaarServiceImpl implements EbazaarService {
         Category category = categoryDao.findById(id, Category.class);
         tx.commit();
         return category;
+    }
+
+    public static EbazaarService getInstance() {
+        if (instance == null) {
+            synchronized (EbazaarService.class) {
+                if (instance == null) {
+                    instance = new EbazaarServiceImpl();
+                }
+            }
+        }
+        return instance;
     }
 }
