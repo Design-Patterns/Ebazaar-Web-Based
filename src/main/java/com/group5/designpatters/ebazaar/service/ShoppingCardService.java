@@ -5,10 +5,10 @@
  */
 package com.group5.designpatters.ebazaar.service;
 
+import com.group5.designpatters.ebazaar.entities.Order;
+import com.group5.designpatters.ebazaar.entities.OrderProduct;
 import com.group5.designpatters.ebazaar.entities.Product;
 import com.group5.designpatters.ebazaar.service.impl.CalculateShippingServiceImpl;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -16,30 +16,20 @@ import java.util.List;
  */
 public class ShoppingCardService {
 
-    private List<Product> products;
     private CalculateShippingService shippingService;
 
     public ShoppingCardService() {
-        this.products = new ArrayList<Product>();
         this.shippingService = new CalculateShippingServiceImpl();
     }
 
-    public void addProduct(Product p) {
-        products.add(p);
-    }
-
-    public void removeProduct(Product p) {
-        products.remove(p);
-    }
-
-    public double calculateTotalPrice() {
+    public double calculateTotalPrice(Order order) {
         double sum = 0;
-        for (Product p : products) {
+        for (OrderProduct orderProduct : order.getOrderProductList()) {
+            Product p = orderProduct.getProduct();
             shippingService.visit(p);
             sum += p.getPrice() * p.getQuantity();
         }
 
         return sum + shippingService.getShippingPrice();
     }
-
 }

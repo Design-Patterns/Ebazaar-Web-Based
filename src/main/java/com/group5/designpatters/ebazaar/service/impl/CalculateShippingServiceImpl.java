@@ -16,7 +16,7 @@ public class CalculateShippingServiceImpl implements CalculateShippingService {
 
     private double shippingPrice;
 
-    @Override
+    @Override 
     public void visit(Product p) {
         if(p.getPrice() < 5) {
             shippingPrice += p.getPrice() * 0.7;

@@ -6,11 +6,13 @@
 package com.group5.designpatters.ebazaar.entities;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -27,6 +29,8 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
     private Date date;
+    @OneToMany(mappedBy = "order")
+    private List<OrderProduct> orderProductList;
 
     public Order() {
     }
@@ -54,5 +58,14 @@ public class Order {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public List<OrderProduct> getOrderProductList() {
+        return orderProductList;
+    }
+
+    public void setOrderProductList(List<OrderProduct> orderProductList) {
+        this.orderProductList = orderProductList;
+    }
+    
 
 }
