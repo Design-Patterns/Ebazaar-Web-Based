@@ -24,11 +24,12 @@ public class User {
     @Id
     @GeneratedValue
     private long id;
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true)
     private String userName;
     private String password;
     @Column(name = "real_name")
     private String realName;
+    @Column(unique = true)
     private String email;
     private String info;
     @OneToOne

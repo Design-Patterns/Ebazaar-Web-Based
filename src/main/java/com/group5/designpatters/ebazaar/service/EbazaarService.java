@@ -18,15 +18,15 @@ import java.util.List;
  */
 public interface EbazaarService {
 
-    public Product createProduct(Product p);
+    public Product createOrUpdateProduct(Product p);
 
-    public Order createOrder(Order o);
+    public Order createOrUpdateOrder(Order o);
 
-    public Role createRole(Role r);
+    public Role createOrUpdateRole(Role r);
 
     public User createOrUpdateUser(User u);
 
-    public Category createCategory(Category c);
+    public Category createOrUpdateCategory(Category c);
 
     public List<Product> getProductList();
 

@@ -32,33 +32,54 @@ public class EbazaarServiceImpl implements EbazaarService {
     private GenericDao<Category, Long> categoryDao = new GenericDaoImpl<Category, Long>();
 
     @Override
-    public Product createProduct(Product p) {
+    public Product createOrUpdateProduct(Product p) {
         Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-        Product product = productDao.create(p);
+        Product product;
+        if (p.getId() == 0) {
+            product = productDao.create(p);
+        } else {
+            product = productDao.update(p);
+        }
+
         tx.commit();
         return product;
     }
 
     @Override
-    public Order createOrder(Order o) {
+    public Order createOrUpdateOrder(Order o) {
         Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-        Order order = orderDao.create(o);
+        Order order;
+        if (o.getId() == 0) {
+            order = orderDao.create(o);
+        } else {
+            order = orderDao.update(o);
+        }
         tx.commit();
         return order;
     }
 
     @Override
-    public Role createRole(Role r) {
+    public Role createOrUpdateRole(Role r) {
         Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-        Role role = roleDao.create(r);
+        Role role;
+        if (r.getId() == 0) {
+            role = roleDao.create(r);
+        } else {
+            role = roleDao.update(r);
+        }
         tx.commit();
         return role;
     }
 
     @Override
-    public Category createCategory(Category c) {
+    public Category createOrUpdateCategory(Category c) {
         Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-        Category category = categoryDao.create(c);
+        Category category;
+        if (c.getId() == 0) {
+            category = categoryDao.create(c);
+        } else {
+            category = categoryDao.update(c);
+        }
         tx.commit();
         return category;
     }
