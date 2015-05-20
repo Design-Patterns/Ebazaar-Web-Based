@@ -29,7 +29,9 @@
                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
                         <div class="well logo">
                             <a href="login.jsp">Login</a> 
-                            <a href="index.html">Registration</a> 
+                            <a href="registration.jsp">Registration</a> 
+                            <a href="sellproduct.jsp">Sell product</a> 
+                            <a href="myproducts.jsp">My products</a> 
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-7 col-xs-12">
