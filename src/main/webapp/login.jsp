@@ -19,16 +19,22 @@
     <body>
         <div class="row" style="padding-top: 100px;"> 
             <div class="hidden-sm hidden-xs well center-block" style="width:300px">
-                <form action="LoginControl">
+                <form action="LoginControl" method="post">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="login" class="form-control" id="username" placeholder="Enter username">
+                        <input type="login" class="form-control" id="username" name="username" placeholder="Enter username">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                     </div> 
-                    <button type="submit" class="btn btn-default">Submit</button>
+                     <%
+                        if (request.getAttribute("info") != null) {
+                            String info = String.valueOf(request.getAttribute("info"));
+                            out.print("<div class=\"form-group\"><span class=\"label label-danger\">" + info + "</span></div>");
+                        }%>
+                    <button type="submit" class="btn btn-default">Login</button>
+                    <a href="index.html">back</a>
                 </form>
             </div> </div>  
     </body>

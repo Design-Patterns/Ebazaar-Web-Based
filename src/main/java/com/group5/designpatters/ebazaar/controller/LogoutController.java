@@ -5,11 +5,8 @@
  */
 package com.group5.designpatters.ebazaar.controller;
 
-import com.group5.designpatters.ebazaar.entities.User;
-import com.group5.designpatters.ebazaar.service.EbazaarService;
-import com.group5.designpatters.ebazaar.service.impl.EbazaarServiceImpl;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,12 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Rustam
+ * @author 984150
  */
-@WebServlet(name = "LoginControl", urlPatterns = {"/LoginControl"})
-public class LoginControl extends HttpServlet {
-    
-    private EbazaarService ebazaarService = new EbazaarServiceImpl();
+@WebServlet(name = "LogoutController", urlPatterns = {"/LogoutController"})
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,26 +31,8 @@ public class LoginControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        
-        List<User> users = ebazaarService.getUserList();
-        User user = null;
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUserName().equals(username)) {
-                user = users.get(i);
-                break;
-            }
-        }
-        
-        if (user != null && user.getPassword().equals(password)) {
-            request.getSession().setAttribute("user", user); 
-            request.getRequestDispatcher("index.html").forward(request, response);
-        } else {
-            request.setAttribute("info", "Wrong username or password!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
+        request.getSession().invalidate();
+        request.getRequestDispatcher("index.html").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

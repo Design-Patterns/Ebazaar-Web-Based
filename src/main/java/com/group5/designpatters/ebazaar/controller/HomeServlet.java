@@ -30,8 +30,8 @@ public class HomeServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("products", ebazaarService.getCategoryList());
-        request.getRequestDispatcher("products.jsp").forward(request, response);
+        request.setAttribute("products", ebazaarService.getProductList());
+        request.getRequestDispatcher("main.jsp").forward(request, response);
     }
 
     @Override
