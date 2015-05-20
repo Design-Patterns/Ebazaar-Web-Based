@@ -5,6 +5,7 @@
  */
 package com.group5.designpatters.ebazaar.entities;
 
+import com.group5.designpatters.ebazaar.service.CalculateShippingService;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -89,5 +90,9 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+    
+    public void access(CalculateShippingService visitor){
+        visitor.visit(this);
     }
 }

@@ -10,7 +10,6 @@ import com.group5.designpatters.ebazaar.utilities.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 /**
  *
