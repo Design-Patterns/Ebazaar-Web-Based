@@ -3,11 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.group5.designpatters.ebazaar.controller.model;
 
+package com.group5.designpatters.ebazaar.controller;
+
+import com.group5.designpatters.ebazaar.entities.Product;
+import com.group5.designpatters.ebazaar.entities.User;
 import com.group5.designpatters.ebazaar.service.EbazaarService;
 import com.group5.designpatters.ebazaar.service.impl.EbazaarServiceImpl;
+import com.group5.designpatters.ebazaar.utilities.iterator.MyProductIterator;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,23 +22,22 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author 984150
+ * @author Rustam
  */
-@WebServlet(name = "NewProductModel", urlPatterns = {"/NewProductModel"})
-public class NewProductModel extends HttpServlet {
+@WebServlet(name = "MyProducts", urlPatterns = {"/MyProducts"})
+public class MyProducts extends HttpServlet {
     
-    private EbazaarService ebazaarService = new EbazaarServiceImpl();
+    EbazaarService service = new EbazaarServiceImpl();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("categories", ebazaarService.getCategoryList());
         
-        String productId = request.getParameter("product_id");
-        if (productId != null) {
-            request.setAttribute("product", ebazaarService.getProductById(Long.parseLong(productId)));
-        }
+        List<Product> products = service.getProductList();
+        User u = (User) request.getSession().getAttribute("user");
         
-        request.getRequestDispatcher("addproduct.jsp").forward(request, response);
+        Iterator<Product> i = new MyProductIterator(products, u.getId());
+        request.setAttribute("iterator", i);
+        request.getRequestDispatcher("myproducts.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -153,4 +153,12 @@ public class EbazaarServiceImpl implements EbazaarService {
         tx.commit();
         return category;
     }
+
+    @Override
+    public Product getProductById(long id) {
+        tx = sessionFactory.getCurrentSession().beginTransaction();
+        Product product = productDao.findById(id, Product.class);
+        tx.commit();
+        return product;
+    }
 }

@@ -63,7 +63,7 @@
                             out.print("<div class=\"form-group\"><span class=\"label label-primary\">" + info + "</span></div>");
                         }%>
                     <button type="submit" class="btn btn-default">Save product</button>
-                    <a href="myproducts.jsp">back</a>
+                    <a href="MyProducts">back</a>
                 </form>
             </div> </div>  
     </body>

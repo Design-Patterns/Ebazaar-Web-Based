@@ -27,4 +27,8 @@ public class OrderDto {
         return quantity;
     }
 
+    public void increaseQuantity() {
+        quantity++;
+    }
+
 }

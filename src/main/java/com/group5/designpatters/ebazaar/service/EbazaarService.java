@@ -40,4 +40,6 @@ public interface EbazaarService {
     public List<User> getUserList();
     
     public Category getCategoryById(long id);
+    
+    public Product getProductById(long id);
 }

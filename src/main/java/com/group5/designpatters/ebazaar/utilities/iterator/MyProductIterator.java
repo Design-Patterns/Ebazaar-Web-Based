@@ -16,35 +16,34 @@ import java.util.List;
 public class MyProductIterator implements Iterator<Product> {
 
     private List<Product> products;
-    private int userId;
-    private Product next;
+    private long userId;
     private int index;
 
-    public MyProductIterator(List<Product> products, int userId) {
+    public MyProductIterator(List<Product> products, long userId) {
         this.products = products;
         this.userId = userId;
         this.index = 0;
     }
 
-    private void setNext() {
-        for (int i = index; i < products.size(); i++) {
-            if (products.get(i).getUser().getId() == userId) {
-                index = i + 1;
-                next = products.get(i);
-                break;
-            }
-        }
-        next = null;
-    }
-
     @Override
     public boolean hasNext() {
-        
+        for (int i = index; i < products.size(); i++) {
+            if (products.get(i).getUser().getId() == userId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public Product next() {
-        return next;
+        for (int i = index; i < products.size(); i++) {
+            if (products.get(i).getUser().getId() == userId) {
+                index = i + 1;
+                return products.get(i);
+            }
+        }
+        throw new RuntimeException("maximum limit");
     }
 
     @Override
