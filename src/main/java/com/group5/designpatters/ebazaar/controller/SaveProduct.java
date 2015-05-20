@@ -46,7 +46,7 @@ public class SaveProduct extends HttpServlet {
         p.setUser((User) request.getSession().getAttribute("user"));
         p.setCategory(sf.getCategoryById(Integer.parseInt(request.getParameter("category_id"))));
 
-        ebazaarService.createProduct(p);
+        ebazaarService.createOrUpdateProduct(p);
 
     }
 
