@@ -24,7 +24,7 @@ public interface EbazaarService {
 
     public Role createRole(Role r);
 
-    public User createUser(User u);
+    public User createOrUpdateUser(User u);
 
     public Category createCategory(Category c);
 

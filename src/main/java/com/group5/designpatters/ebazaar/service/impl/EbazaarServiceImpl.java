@@ -64,9 +64,14 @@ public class EbazaarServiceImpl implements EbazaarService {
     }
 
     @Override
-    public User createUser(User u) {
+    public User createOrUpdateUser(User u) {
         Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-        User user = userDao.create(u);
+        User user;
+        if (u.getId() == 0) {
+            user = userDao.create(u);
+        } else {
+            user = userDao.update(u);
+        }
         tx.commit();
         return user;
     }
