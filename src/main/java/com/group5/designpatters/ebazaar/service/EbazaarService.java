@@ -5,6 +5,7 @@
  */
 package com.group5.designpatters.ebazaar.service;
 
+import com.group5.designpatters.ebazaar.controller.model.OrderDto;
 import com.group5.designpatters.ebazaar.entities.Category;
 import com.group5.designpatters.ebazaar.entities.Order;
 import com.group5.designpatters.ebazaar.entities.Product;
@@ -20,7 +21,7 @@ public interface EbazaarService {
 
     public Product createOrUpdateProduct(Product p);
 
-    public Order createOrUpdateOrder(Order o);
+    public Order createOrUpdateOrder(long userId, List<OrderDto> orderDto);
 
     public Role createOrUpdateRole(Role r);
 
@@ -37,4 +38,6 @@ public interface EbazaarService {
     public List<Category> getCategoryList();
 
     public List<User> getUserList();
+    
+    public Category getCategoryById(long id);
 }

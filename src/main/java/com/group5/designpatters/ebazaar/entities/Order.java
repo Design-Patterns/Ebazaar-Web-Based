@@ -7,6 +7,7 @@ package com.group5.designpatters.ebazaar.entities;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,12 +30,18 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
     private Date date;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderProduct> orderProductList;
 
     public Order() {
     }
 
+    public Order(User user, Date date) {
+        this.user = user;
+        this.date = date;
+    }
+
+    
     public long getId() {
         return id;
     }

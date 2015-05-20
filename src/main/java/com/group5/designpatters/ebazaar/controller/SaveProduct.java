@@ -8,8 +8,6 @@ package com.group5.designpatters.ebazaar.controller;
 import com.group5.designpatters.ebazaar.entities.Product;
 import com.group5.designpatters.ebazaar.entities.User;
 import com.group5.designpatters.ebazaar.service.EbazaarService;
-import com.group5.designpatters.ebazaar.service.EbazaarServiceFacade;
-import com.group5.designpatters.ebazaar.service.impl.EbazaarServiceFacadeImp;
 import com.group5.designpatters.ebazaar.service.impl.EbazaarServiceImpl;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -30,8 +28,6 @@ public class SaveProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        EbazaarServiceFacade sf = new EbazaarServiceFacadeImp(ebazaarService);
-
         Product p = new Product();
 
         if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
@@ -44,7 +40,7 @@ public class SaveProduct extends HttpServlet {
         p.setTitle(request.getParameter("title"));
 
         p.setUser((User) request.getSession().getAttribute("user"));
-        p.setCategory(sf.getCategoryById(Integer.parseInt(request.getParameter("category_id"))));
+        p.setCategory(ebazaarService.getCategoryById(Integer.parseInt(request.getParameter("category_id"))));
 
         ebazaarService.createOrUpdateProduct(p);
 
