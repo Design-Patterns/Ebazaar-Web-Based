@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SaveProduct", urlPatterns = {"/SaveProduct"})
 public class SaveProduct extends HttpServlet {
 
-    private EbazaarService ebazaarService = new EbazaarServiceImpl();
+    private EbazaarService ebazaarService = EbazaarServiceImpl.getInstance();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

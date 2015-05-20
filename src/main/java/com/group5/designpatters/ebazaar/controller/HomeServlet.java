@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "HomeServlet", urlPatterns = {"/index.html"})
 public class HomeServlet extends HttpServlet {
 
-    private EbazaarService ebazaarService = new EbazaarServiceImpl();
+    private EbazaarService ebazaarService = EbazaarServiceImpl.getInstance();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
