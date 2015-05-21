@@ -57,9 +57,10 @@
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-7 col-xs-12">
                         <div class="well">
-                            <form action="">
+                            <form action="index.html" method="post">
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-search" placeholder="Enter something to search">
+                                    <input type="text" class="form-control input-search" name="question" placeholder="Enter something to search"
+                                           <% if (request.getAttribute("question") != null) {%>value="<%=request.getAttribute("question")%>" <%}%> >
                                     <span class="input-group-btn">
                                         <button class="btn btn-default no-border-left" type="submit">Search
                                         </button>
@@ -70,8 +71,15 @@
                     </div>
                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
                         <div class="well logo">
-                            <span class="" style="font-weight: bold;" >  Order Box (<%=orders.size()%> items, <%=quants%> quantity) </span>
+                            <button type="button" class="" data-toggle="modal" data-target="#myModal">
+                                <span class="" style="font-weight: bold;" >  Order Box (<%=orders.size()%> items, <%=quants%> quantity) </span>
+                            </button> 
                         </div>
+                            <%
+                        if (request.getAttribute("info") != null) {
+                            String info = String.valueOf(request.getAttribute("info"));
+                            out.print("<div class=\"form-group\"><span class=\"label label-primary\">" + info + "</span></div>");
+                        }%>
                     </div>
                 </div>
             </div>
@@ -118,7 +126,42 @@
 
 
 
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Order Card</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="">
+                            <table class="table table-striped">
+                                <thead style="font-weight: bolder">
+                                    <tr><td>Product</td>
+                                        <td>Quantity</td>
+                                    </tr>
+                                </thead>
+                                <% for (int i = 0; i < orders.size(); i++) {
+                                        OrderDto c = orders.get(i);%>
+                                <tr>
+                                    <td><%=c.getProduct().getTitle()%></td>
+                                    <td><%=c.getQuantity()%></td>
+                                </tr>
+                                <%}%> 
+                            </table>
+                        </div>
+                    </div> 
+                    <form action="Checkout" method="post">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
+                            <button type="submit" class="btn btn-primary">Checkout</button>
+
+                        </div>  
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
 

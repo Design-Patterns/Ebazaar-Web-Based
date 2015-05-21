@@ -5,14 +5,12 @@
  */
 package com.group5.designpatters.ebazaar.controller;
 
-import com.group5.designpatters.ebazaar.dao.GenericDao;
-import com.group5.designpatters.ebazaar.dao.impl.GenericDaoImpl;
 import com.group5.designpatters.ebazaar.entities.Product;
 import com.group5.designpatters.ebazaar.service.EbazaarService;
 import com.group5.designpatters.ebazaar.service.impl.EbazaarServiceImpl;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +28,26 @@ public class HomeServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("products", ebazaarService.getProductList());
+
+        List<Product> products = ebazaarService.getProductList();
+        List<Product> products2 = new ArrayList<Product>();
+
+        if (request.getParameter("question") != null) {
+            String question = request.getParameter("question").trim().toLowerCase();
+
+            for (int i = 0; i < products.size(); i++) {
+                Product p = products.get(i);
+                if (p.getDescription().toLowerCase().contains(question) || p.getTitle().toLowerCase().contains(question)) {
+                    products2.add(p);
+                }
+            }
+            request.setAttribute("question", request.getParameter("question"));
+
+        } else {
+            products2 = products;
+        }
+
+        request.setAttribute("products", products2);
         request.getRequestDispatcher("main.jsp").forward(request, response);
     }
 

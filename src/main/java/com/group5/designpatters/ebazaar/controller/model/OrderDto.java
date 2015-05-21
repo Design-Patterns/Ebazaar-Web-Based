@@ -5,6 +5,9 @@
  */
 package com.group5.designpatters.ebazaar.controller.model;
 
+import com.group5.designpatters.ebazaar.entities.Product;
+import com.group5.designpatters.ebazaar.service.impl.EbazaarServiceImpl;
+
 /**
  *
  * @author Odiljon Sattarov
@@ -21,6 +24,10 @@ public class OrderDto {
 
     public Long getProductId() {
         return productId;
+    }
+    
+    public Product getProduct() {
+        return EbazaarServiceImpl.getInstance().getProductById(productId);
     }
 
     public int getQuantity() {
