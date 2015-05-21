@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "LoginControl", urlPatterns = {"/LoginControl"})
 public class LoginControl extends HttpServlet {
     
-    private EbazaarService ebazaarService = new EbazaarServiceImpl();
+    private EbazaarService ebazaarService = EbazaarServiceImpl.getInstance();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -5,4 +5,14 @@
         <error-code>404</error-code>
         <location>/notfound.jsp</location>
     </error-page>
+    
+    <filter>
+        <display-name>OpenSessionInViewFilter</display-name>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <filter-class>com.group5.designpatters.ebazaar.servletfilter.OpenSessionInViewFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

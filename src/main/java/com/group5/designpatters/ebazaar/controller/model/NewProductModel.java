@@ -20,9 +20,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "NewProductModel", urlPatterns = {"/NewProductModel"})
 public class NewProductModel extends HttpServlet {
-    
-    private EbazaarService ebazaarService = new EbazaarServiceImpl();
-    
+ 
+
+    private EbazaarService ebazaarService = EbazaarServiceImpl.getInstance();
+ 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("categories", ebazaarService.getCategoryList());
