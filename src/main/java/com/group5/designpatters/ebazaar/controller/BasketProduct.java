@@ -6,6 +6,7 @@
 package com.group5.designpatters.ebazaar.controller;
 
 import com.group5.designpatters.ebazaar.controller.model.OrderDto;
+import com.group5.designpatters.ebazaar.service.ShoppingCardService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,10 @@ public class BasketProduct extends HttpServlet {
             o.increaseQuantity();
         }
 
-       
- 
+        double totalPrice = ShoppingCardService.getInstance().calculateTotalPrice(basket);
+
+        session.setAttribute("totalPrice", totalPrice);
+
         request.getRequestDispatcher("index.html").forward(request, response);
     }
 

@@ -5,10 +5,10 @@
  */
 package com.group5.designpatters.ebazaar.service;
 
-import com.group5.designpatters.ebazaar.entities.Order;
-import com.group5.designpatters.ebazaar.entities.OrderProduct;
+import com.group5.designpatters.ebazaar.controller.model.OrderDto;
 import com.group5.designpatters.ebazaar.entities.Product;
 import com.group5.designpatters.ebazaar.service.impl.CalculateShippingServiceImpl;
+import java.util.List;
 
 /**
  *
@@ -16,20 +16,32 @@ import com.group5.designpatters.ebazaar.service.impl.CalculateShippingServiceImp
  */
 public class ShoppingCardService {
 
+    private static ShoppingCardService instance;
     private CalculateShippingService shippingService;
 
     public ShoppingCardService() {
         this.shippingService = new CalculateShippingServiceImpl();
     }
 
-    public double calculateTotalPrice(Order order) {
+    public double calculateTotalPrice(List<OrderDto> orderDtos) {
         double sum = 0;
-        for (OrderProduct orderProduct : order.getOrderProductList()) {
-            Product p = orderProduct.getProduct();
+        for (OrderDto orderDto : orderDtos) {
+            Product p = orderDto.getProduct();
             shippingService.visit(p);
-            sum += p.getPrice() * p.getQuantity();
+            sum += p.getPrice() * orderDto.getQuantity();
         }
 
         return sum + shippingService.getShippingPrice();
+    }
+
+    public static ShoppingCardService getInstance() {
+        if (instance == null) {
+            synchronized (ShoppingCardService.class) {
+                if (instance == null) {
+                    instance = new ShoppingCardService();
+                }
+            }
+        }
+        return instance;
     }
 }

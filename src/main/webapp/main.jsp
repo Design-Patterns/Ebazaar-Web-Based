@@ -36,6 +36,12 @@
             for (int i = 0; i < orders.size(); i++) {
                 quants += orders.get(i).getQuantity();
             }
+
+            double totalPrice = 0;
+            Object obj = session.getAttribute("totalPrice");
+            if (obj != null) {
+                totalPrice = (Double) obj;
+            }
         %>
 
         <header>
@@ -72,14 +78,14 @@
                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
                         <div class="well logo">
                             <button type="button" class="" data-toggle="modal" data-target="#myModal">
-                                <span class="" style="font-weight: bold;" >  Order Box (<%=orders.size()%> items, <%=quants%> quantity) </span>
+                                <span class="" style="font-weight: bold;" >  Order Box (<%=orders.size()%> items, <%=quants%> quantity, <%=totalPrice%> price) </span>
                             </button> 
                         </div>
-                            <%
-                        if (request.getAttribute("info") != null) {
-                            String info = String.valueOf(request.getAttribute("info"));
-                            out.print("<div class=\"form-group\"><span class=\"label label-primary\">" + info + "</span></div>");
-                        }%>
+                        <%
+                            if (request.getAttribute("info") != null) {
+                                String info = String.valueOf(request.getAttribute("info"));
+                                out.print("<div class=\"form-group\"><span class=\"label label-primary\">" + info + "</span></div>");
+                                }%>
                     </div>
                 </div>
             </div>
