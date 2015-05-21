@@ -5,6 +5,7 @@
  */
 package com.group5.designpatters.ebazaar.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -23,6 +24,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_ORDER")
 public class Order {
+
     @Id
     @GeneratedValue
     private long id;
@@ -41,7 +43,6 @@ public class Order {
         this.date = date;
     }
 
-    
     public long getId() {
         return id;
     }
@@ -67,12 +68,14 @@ public class Order {
     }
 
     public List<OrderProduct> getOrderProductList() {
+        if (orderProductList == null) {
+            orderProductList = new ArrayList<OrderProduct>();
+        }
         return orderProductList;
     }
 
     public void setOrderProductList(List<OrderProduct> orderProductList) {
         this.orderProductList = orderProductList;
     }
-    
 
 }

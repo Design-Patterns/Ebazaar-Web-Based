@@ -21,7 +21,7 @@ public interface EbazaarService {
 
     public Product createOrUpdateProduct(Product p);
 
-    public Order createOrUpdateOrder(long userId, List<OrderDto> orderDto);
+    public Order createOrUpdateOrder(List<OrderDto> orderDto, Object... obj);
 
     public Role createOrUpdateRole(Role r);
 

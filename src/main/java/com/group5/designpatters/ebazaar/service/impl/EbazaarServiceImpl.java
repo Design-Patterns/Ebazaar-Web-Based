@@ -47,8 +47,15 @@ public class EbazaarServiceImpl implements EbazaarService {
     }
 
     @Override
-    public Order createOrUpdateOrder(long userId, List<OrderDto> orderDtoList) {
-        User user = userDao.findById(userId, User.class);
+    public Order createOrUpdateOrder(List<OrderDto> orderDtoList, Object... obj) {
+        User user = null;
+        if (obj.length > 0) {
+            if (!(obj[0] instanceof Long)) {
+                throw new IllegalArgumentException("...");
+            }
+            user = userDao.findById((Long) obj[0], User.class);
+        }
+
         Order order = new Order(user, new Date());
 
         if (orderDtoList.size() > 0) {
