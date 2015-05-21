@@ -7,12 +7,13 @@ package com.group5.designpatters.ebazaar.controller.model;
 
 import com.group5.designpatters.ebazaar.entities.Product;
 import com.group5.designpatters.ebazaar.service.impl.EbazaarServiceImpl;
+import java.io.Serializable;
 
 /**
  *
  * @author Odiljon Sattarov
  */
-public class OrderDto {
+public class OrderDto implements Serializable {
 
     private Long productId;
     private int quantity;
@@ -25,7 +26,7 @@ public class OrderDto {
     public Long getProductId() {
         return productId;
     }
-    
+
     public Product getProduct() {
         return EbazaarServiceImpl.getInstance().getProductById(productId);
     }
